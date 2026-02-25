@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Pacifico&display=swap');
+
+.divContainer {
+  min-height: 400px;
+  background-image: url('../assets/icons/beautiful-women-wearing-lingerie-feeling-comfortable.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.divHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 64px;
+  padding: 0 1rem;
+  border-bottom: 1px solid pink;
+  background-color: rgba(0, 0, 0, 0.85);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-family: 'Pacifico', cursive;
+  color: pink;
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: pink;
+  font-weight: 600;
+}
+
+.divIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: pink;
+}
+
+.divIcons svg {
+  width: 16px;
+  height: 16px;
+}
