@@ -1,16 +1,78 @@
-# React + Vite
+# Pokedex API + Frontend Moderno
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto completo com:
 
-Currently, two official plugins are available:
+- API Node (`server/index.mjs`) para listar Pokemon de todas as regioes (dados vindos da PokeAPI).
+- Filtros por tipo, regiao, geracao, busca por nome/numero e faixa de stats.
+- Ordenacao por nome, numero, stats, peso, altura etc.
+- Paginacao.
+- Interface React moderna consumindo a API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Como rodar
 
-## React Compiler
+1. Instale dependencias:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+2. Para desenvolvimento integrado (frontend + API no mesmo comando):
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev
+```
+
+A API fica disponivel no mesmo host do Vite, por exemplo:
+
+- `http://localhost:5173/api/health`
+
+3. Opcional: subir API standalone em outra porta:
+
+```bash
+npm run dev:api
+```
+
+Frontend: `http://localhost:5173`  
+API standalone: `http://localhost:3001`
+
+## Endpoints principais
+
+- `GET /api/health`
+- `GET /api/types`
+- `GET /api/regions`
+- `GET /api/pokemon`
+- `GET /api/pokemon/:idOuNome`
+- `POST /api/refresh`
+
+## Query params do `/api/pokemon`
+
+- `q`: busca por nome ou numero
+- `type`: tipo (`fire`, `water`, etc)
+- `region`: regiao (`kanto`, `johto`, ...)
+- `generation`: geracao (`1`..`9`)
+- `sortBy`: `number`, `name`, `total`, `hp`, `attack`, `defense`, `specialAttack`, `specialDefense`, `speed`, `weight`, `height`, `baseExperience`
+- `order`: `asc` ou `desc`
+- `page`: pagina (padrao `1`)
+- `limit`: itens por pagina (padrao `24`, max `120`)
+- `minTotal`, `maxTotal`
+- `minHp`, `maxHp`
+- `minAttack`, `maxAttack`
+- `minDefense`, `maxDefense`
+- `minSpeed`, `maxSpeed`
+
+### Exemplo
+
+```http
+GET /api/pokemon?type=fire&sortBy=total&order=desc&page=1&limit=20
+```
+
+## Cache de dados
+
+A API salva cache local em `server/.cache/pokedex-cache.json`.
+
+Variaveis opcionais:
+
+- `PORT` (default `3001`)
+- `POKEDEX_CACHE_TTL_HOURS` (default `24`)
+- `POKEDEX_FETCH_CONCURRENCY` (default `35`)
+- `POKEAPI_LIST_LIMIT` (default `2000`)
